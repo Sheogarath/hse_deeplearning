@@ -61,7 +61,7 @@ def main():
         if ".git" in p.parts:continue
         try:
             rel,out,n=process(p)
-            index.append(f"- [{rel}]({out.relative_to(OUT)}): {n} slides")
+            index.append(f"- [{rel}]({out.relative_to(OUT) if out.is_absolute() else out.relative_to(Path('lecture_diagram_maps'))}): {n} slides")
         except Exception as e:index.append(f"- {p.relative_to(ROOT)}: ERROR {e}")
     (OUT/"INDEX.md").write_text("\n".join(index)+"\n",encoding="utf-8")
 if __name__=="__main__":main()
